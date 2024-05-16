@@ -12,6 +12,7 @@ BOT_NAME = "scp_recommender_scraper"
 SPIDER_MODULES = ["scp.spiders"]
 NEWSPIDER_MODULE = "scp.spiders"
 
+LOG_LEVEL = "INFO"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "MrShwhale (https://github.com/MrShwhale/scp-recommender)"
@@ -61,9 +62,9 @@ COOKIES_ENABLED = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#     "scp.pipelines.JsonWriterPipeline": 300,
-# }
+ITEM_PIPELINES = {
+    "scp.pipelines.ItemWriter": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
