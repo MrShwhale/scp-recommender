@@ -20,13 +20,6 @@ class PageTagsSpider(scrapy.Spider):
 
     start_urls = [TAG_PREFIX + suffix for suffix in TAG_TYPES]
 
-    # You are replacing this with an Item Pipline so that you can have everything look actually good
-    # custom_settings = {
-    #     "FEEDS":{
-    #         './output/links.json': {"format": "jsonlines", "overwrite":True}
-    #     }
-    # }
-
     # Use to store the ids of users which have been found already
     users = set()
 
@@ -91,11 +84,18 @@ class PageTagsSpider(scrapy.Spider):
         url_pattern = re.compile("http://www\\.wikidot\\.com/user:info/(.+?)\"")
         uid_pattern = re.compile(r"userInfo\((\d+)\)")
         uname_pattern = re.compile(r">(.+)</a>")
+        rating_pattern = re.compile(r"^\s+(\+|-)\s+$")
 
         for user_raw, rating in zip(*(iter(information),) * 2):
             name_match = uname_pattern.search(user_raw)
             if name_match is None:
+                # If the raw is a rating, then this should be a deleted user
+                if rating_pattern.fullmatch(user_raw):
+                    break
+
                 self.logger.error("Couldn't find a name in <%s>\n", user_raw)
+                from scrapy.shell import inspect_response
+                inspect_response(response, self)
                 continue
             else:
                 name = name_match.group(1)

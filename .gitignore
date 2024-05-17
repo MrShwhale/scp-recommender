@@ -152,5 +152,8 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# output files
-output/
+# output files (but not folder)
+output/* 
+
+# Thing for mac?
+.DS_Store
