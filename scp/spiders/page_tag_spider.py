@@ -11,7 +11,6 @@ MAIN_TOKEN = "123456"
 
 # These 4 tags cover just about every page that I want to consider
 TAG_TYPES = ["scp", "tale", "hub", "goi-format"]
-TAG_TYPES = ["hub"]
 
 # Used to get a list of articles on the SCP wiki
 class PageTagsSpider(scrapy.Spider):
