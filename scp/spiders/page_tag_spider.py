@@ -116,6 +116,7 @@ class PageTagsSpider(scrapy.Spider):
             rating = rating.strip()
             if user_id not in self.users:
                 self.logger.info("New user with id %s and name %s", user_id, name)
+                self.users.add(user_id)
                 yield User(user_id=user_id, name=name, url=user_url)
 
             rating_val = 1 if rating == "+" else -1
