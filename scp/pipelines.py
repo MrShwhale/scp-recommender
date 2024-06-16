@@ -1,6 +1,3 @@
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
 from itemadapter.adapter import ItemAdapter
 from scp.items import User, Rating, Page
 
@@ -13,13 +10,14 @@ def csvify(*things):
 
     return string[:-1]
 
+# Basic class which handles writing 
 class ItemWriter:
     def open_spider(self, spider):
         # Open the files
         self.user_file = open(f"{OUTPUT_PATH}/users.csv", "w")
         self.page_file = open(f"{OUTPUT_PATH}/pages.csv", "w")
         self.ratings_file = open(f"{OUTPUT_PATH}/ratings.csv", "w")
-        self.log_file = open(f"{OUTPUT_PATH}/log.txt", "w")
+        self.log_file = open(f"{OUTPUT_PATH}/ItemWriter.log", "w")
 
         # Add the headers
         self.user_file.write("userId,userName,url")
@@ -27,6 +25,7 @@ class ItemWriter:
         self.ratings_file.write("userId,pageId,rating")
 
     def close_spider(self, spider):
+        # Close all the files opened so far
         self.user_file.close()
         self.page_file.close()
         self.ratings_file.close()

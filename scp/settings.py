@@ -1,23 +1,17 @@
-# Scrapy settings for scp project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
 BOT_NAME = "scp_recommender_scraper"
 
 SPIDER_MODULES = ["scp.spiders"]
 NEWSPIDER_MODULE = "scp.spiders"
 
-LOG_LEVEL = "INFO"
+# Run in debug by default
+DEBUG_MODE = True
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
+LOG_ENABLE = True
+LOG_LEVEL = "DEBUG" if DEBUG_MODE else "INFO"
+LOG_FILE = "./output/scrapy.log"
+
 USER_AGENT = "MrShwhale (https://github.com/MrShwhale/scp-recommender)"
 
-# Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -30,41 +24,17 @@ CONCURRENT_REQUESTS = 8
 # The download delay setting will honor only one of:
 CONCURRENT_REQUESTS_PER_DOMAIN = CONCURRENT_REQUESTS
 
-# Disable cookies (enabled by default)
 COOKIES_ENABLED = True
 
-# Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
-
-# Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-#    "Accept-Language": "en",
-#}
-
-# Enable or disable spider middlewares
-# See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    "scp.middlewares.ScpSpiderMiddleware": 543,
-#}
-
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "scp.middlewares.ScpDownloaderMiddleware": 543,
-#}
-
-# Enable or disable extensions
-# See https://docs.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    "scrapy.extensions.telnet.TelnetConsole": None,
-#}
-
-# Configure item pipelines
-# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "scp.pipelines.ItemWriter": 300,
 }
+
+EXTENSIONS = {
+    "scrapy.extensions.closespider.CloseSpider": 300,
+}
+
+CLOSESPIDER_PAGECOUNT = 100 if DEBUG_MODE else 0
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -79,17 +49,7 @@ ITEM_PIPELINES = {
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
 
-# Enable and configure HTTP caching (disabled by default)
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = "httpcache"
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
-
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-
-# How to store the data
