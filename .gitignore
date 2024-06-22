@@ -155,5 +155,8 @@ cython_debug/
 # output files (but not folder)
 output/* 
 
+# Backup of the output (including the folder)
+backup_output
+
 # Thing for mac?
 .DS_Store

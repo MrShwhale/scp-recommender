@@ -4,11 +4,11 @@ SPIDER_MODULES = ["scp.spiders"]
 NEWSPIDER_MODULE = "scp.spiders"
 
 # Run in debug by default
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 LOG_ENABLE = True
 LOG_LEVEL = "DEBUG" if DEBUG_MODE else "INFO"
-LOG_FILE = "./output/scrapy.log"
+# LOG_FILE = "./output/scrapy.log"
 
 USER_AGENT = "MrShwhale (https://github.com/MrShwhale/scp-recommender)"
 

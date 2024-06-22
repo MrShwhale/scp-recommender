@@ -37,7 +37,7 @@ class PageTagsSpider(scrapy.Spider):
     def parse_tag_page(self, response):
         self.logger.info("Parsing tag page: %s", response.url)
 
-        # TODO if you ever feel up to it, refactor this whole function. It's awful
+        # TODO if you ever feel up to it, refactor this whole function. It's awful.
         # Get a list of the links and page titles (with links preceeding the title of the page)
         parsed_response = response.xpath(f"{PAGE_LIST_ITEM_XPATH}/@href|{PAGE_LIST_ITEM_XPATH}/text()").getall()
 
